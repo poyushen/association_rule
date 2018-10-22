@@ -1,0 +1,130 @@
+* Execution time : 8.042461 sec
+
+* Min support:  0.01
+* Frequent itemsets:
+
+['Toast'] :  0.033
+['Chicken Stew'] :  0.013
+['Muffin'] :  0.038
+['Brownie'] :  0.039
+['Jam'] :  0.015
+['Juice'] :  0.038
+['Alfajores'] :  0.036
+['Medialuna'] :  0.06
+['Fudge'] :  0.015
+['Pastry'] :  0.084
+['Tea'] :  0.139
+['Soup'] :  0.034
+['Hot chocolate'] :  0.057
+['Baguette'] :  0.016
+['Jammie Dodgers'] :  0.013
+['Mineral water'] :  0.014
+['Sandwich'] :  0.07
+['Cake'] :  0.102
+['Cookies'] :  0.053
+['Truffles'] :  0.02
+['Bread'] :  0.32
+['Farm House'] :  0.038
+['Coke'] :  0.019
+['Salad'] :  0.01
+['Scone'] :  0.034
+['Tiffin'] :  0.015
+['Spanish Brunch'] :  0.018
+['Hearty & Seasonal'] :  0.01
+['Scandinavian'] :  0.028
+['Coffee'] :  0.468
+['Bread', 'Tea'] :  0.027
+['Medialuna', 'Coffee'] :  0.034
+['Sandwich', 'Coffee'] :  0.037
+['Coffee', 'Juice'] :  0.02
+['Hot chocolate', 'Cake'] :  0.011
+['Coffee', 'Alfajores'] :  0.019
+['Coffee', 'Bread'] :  0.088
+['Medialuna', 'Bread'] :  0.017
+['Sandwich', 'Tea'] :  0.014
+['Sandwich', 'Bread'] :  0.017
+['Coffee', 'Tea'] :  0.049
+['Hot chocolate', 'Bread'] :  0.013
+['Coffee', 'Toast'] :  0.023
+['Coffee', 'Muffin'] :  0.018
+['Cookies', 'Bread'] :  0.014
+['Spanish Brunch', 'Coffee'] :  0.011
+['Coffee', 'Cake'] :  0.053
+['Cake', 'Tea'] :  0.023
+['Bread', 'Brownie'] :  0.011
+['Coffee', 'Hot chocolate'] :  0.029
+['Bread', 'Alfajores'] :  0.01
+['Cake', 'Bread'] :  0.023
+['Coffee', 'Brownie'] :  0.019
+['Coffee', 'Scone'] :  0.018
+['Bread', 'Pastry'] :  0.029
+['Soup', 'Coffee'] :  0.015
+['Coffee', 'Pastry'] :  0.046
+['Coffee', 'Cookies'] :  0.028
+['Pastry', 'Coffee', 'Bread'] :  0.011
+
+* Min confidence:  0.01
+* Association Rules:
+
+['Tea'] --> ['Sandwich'] :  0.101
+['Sandwich'] --> ['Tea'] :  0.2
+['Bread'] --> ['Alfajores'] :  0.032
+['Alfajores'] --> ['Bread'] :  0.285
+['Muffin'] --> ['Coffee'] :  0.489
+['Coffee'] --> ['Muffin'] :  0.039
+['Brownie'] --> ['Bread'] :  0.269
+['Bread'] --> ['Brownie'] :  0.033
+['Bread'] --> ['Sandwich'] :  0.052
+['Sandwich'] --> ['Bread'] :  0.237
+['Hot chocolate'] --> ['Bread'] :  0.23
+['Bread'] --> ['Hot chocolate'] :  0.041
+['Hot chocolate'] --> ['Coffee'] :  0.507
+['Coffee'] --> ['Hot chocolate'] :  0.062
+['Pastry'] --> ['Bread'] :  0.339
+['Bread'] --> ['Pastry'] :  0.089
+['Coffee'] --> ['Spanish Brunch'] :  0.023
+['Spanish Brunch'] --> ['Coffee'] :  0.599
+['Coffee'] --> ['Toast'] :  0.049
+['Toast'] --> ['Coffee'] :  0.704
+['Cookies'] --> ['Coffee'] :  0.518
+['Coffee'] --> ['Cookies'] :  0.059
+['Hot chocolate'] --> ['Cake'] :  0.196
+['Cake'] --> ['Hot chocolate'] :  0.11
+['Coffee'] --> ['Sandwich'] :  0.08
+['Sandwich'] --> ['Coffee'] :  0.532
+['Cake'] --> ['Bread'] :  0.225
+['Bread'] --> ['Cake'] :  0.071
+['Coffee'] --> ['Soup'] :  0.033
+['Soup'] --> ['Coffee'] :  0.46
+['Coffee'] --> ['Alfajores'] :  0.041
+['Alfajores'] --> ['Coffee'] :  0.541
+['Pastry'] --> ['Coffee', 'Bread'] :  0.13
+['Coffee'] --> ['Pastry', 'Bread'] :  0.023
+['Bread'] --> ['Pastry', 'Coffee'] :  0.034
+['Pastry', 'Coffee'] --> ['Bread'] :  0.236
+['Pastry', 'Bread'] --> ['Coffee'] :  0.384
+['Coffee', 'Bread'] --> ['Pastry'] :  0.124
+['Bread'] --> ['Tea'] :  0.086
+['Tea'] --> ['Bread'] :  0.197
+['Coffee'] --> ['Bread'] :  0.188
+['Bread'] --> ['Coffee'] :  0.275
+['Cake'] --> ['Coffee'] :  0.527
+['Coffee'] --> ['Cake'] :  0.114
+['Juice'] --> ['Coffee'] :  0.534
+['Coffee'] --> ['Juice'] :  0.043
+['Brownie'] --> ['Coffee'] :  0.491
+['Coffee'] --> ['Brownie'] :  0.041
+['Coffee'] --> ['Tea'] :  0.104
+['Tea'] --> ['Coffee'] :  0.35
+['Scone'] --> ['Coffee'] :  0.523
+['Coffee'] --> ['Scone'] :  0.038
+['Cake'] --> ['Tea'] :  0.229
+['Tea'] --> ['Cake'] :  0.167
+['Cookies'] --> ['Bread'] :  0.266
+['Bread'] --> ['Cookies'] :  0.044
+['Medialuna'] --> ['Coffee'] :  0.569
+['Coffee'] --> ['Medialuna'] :  0.074
+['Medialuna'] --> ['Bread'] :  0.274
+['Bread'] --> ['Medialuna'] :  0.052
+['Pastry'] --> ['Coffee'] :  0.552
+['Coffee'] --> ['Pastry'] :  0.099

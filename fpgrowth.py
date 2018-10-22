@@ -4,8 +4,9 @@ import csv
 import sys
 import itertools
 import operator
+import time
 sys.path.append('./apriori')
-from apriori import get_transactions, get_subsets, get_itemsets
+from apriori import get_transactions, get_itemsets
 
 class node:
     def __init__(self, name, count, parent):
@@ -104,30 +105,72 @@ def fptree(tree, header, support, prev_set, freq_itemsets):
         if tmp_header != None:
             fptree(tmp_tree, tmp_header, support, new_freq_itemset, freq_itemsets)
 
+def gen_rules(transactions, itemsets, confidence, length):
+    item_dict = get_itemsets(transactions, [tuple(i) for i in itemsets], 0)
+    support_set = {}
+    for i in range(len(item_dict)):
+        for key in item_dict.keys():
+            support_set[frozenset(key)] = item_dict[key]/length
+
+    confidence_list = []
+    for key in support_set.keys():
+        if len(key) > 1 :
+            for i in range(1, len(key)):
+                subset = list(itertools.combinations(list(key), i))
+                for sub in subset:
+                    sample = frozenset(set(sub))
+
+                    target = set(key)
+                    for j in list(sub):
+                        target.remove(j)
+                    target = frozenset(target)
+                    cond = {'sample': sample, 'target': target, 'confidence': round((support_set[key] / support_set[sample]), 3)}
+                    if cond['confidence'] >= confidence:
+                        confidence_list.append(cond)
+
+    return support_set, confidence_list
+
 if '__main__' == __name__:
-    if len(sys.argv) == 1:
-        print('usage: $ python3 fpgrowth.py [support]')
-        print('\nThe support value can be a `float less than 1` or an `integer`')
+    if len(sys.argv) < 4:
+        print('usage: $ python3 fpgrowth.py [dataset] [support] [confidence]')
+        print('\ne.g. $ python3 fpgrowth.py kaggle 0.01')
+        print('\nThe [dataset] can be `kaggle` or `ibm`')
+        print('The [support] and [confidence] value can be a `float less than 1` or an `integer`')
         exit()
 
-    with open('./dataset.csv') as f:
-        data = np.array(list(csv.reader(f, delimiter=','))[1:])[:, 2:]
+    if sys.argv[1] == 'kaggle':
+        with open('./data/kaggle_data.csv') as f:
+            data = np.array(list(csv.reader(f, delimiter=','))[1:])[:, 2:]
+    if sys.argv[1] == 'ibm':
+        with open('./data/ibm_data') as f:
+            rawdata = f.readlines()
+        data = []
+        for i in range(len(rawdata)):
+            data.append([int(rawdata[i][10:21]), int(rawdata[i][21:])])
+
+    start_time = time.time()
     transactions, category = get_transactions(data)
     dataset = create_dataset(transactions)
-    if float(sys.argv[1]) < 1:
-        support = int(float(sys.argv[1]) * len(transactions))
-    else:
-        support = int(sys.argv[1])
+    support = int(float(sys.argv[2]) * len(transactions))
+    confidence = float(sys.argv[3])
+
     tree, header = create_tree(dataset, support)
     freq_itemsets = []
     prev_set = set([])
     fptree(tree, header, support, prev_set, freq_itemsets)
 
+    sup, rule = gen_rules(transactions, freq_itemsets, confidence, len(transactions))
     max_len = max([len(i) for i in freq_itemsets])
 
-    print('min support: %d' %support)
+    print('* Execution time : %f sec' %(time.time() - start_time))
+    print('\n* Min support: ', sys.argv[2])
+    print('* Frequent itemsets:\n')
     for i in range(1, max_len + 1):
-        print('\n%d frequent itemsets:' %i)
         for item in freq_itemsets:
             if len(item) == i:
-                print(list(item))
+                print(list(item), ': ', round(sup[frozenset(item)], 3))
+
+    print('\n* Min confidence: ', confidence)
+    print('* Association Rules:\n')
+    for i in rule:
+        print(list(i['sample']), '-->', list(i['target']), ': ', i['confidence'])
