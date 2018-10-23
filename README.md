@@ -57,96 +57,92 @@ This is a repository for assiciation_rule.
   			    [36, 45, 51, 52, 61, 62, 63]  
    
 * data preprocess:  
-  * data/kaggle_data.csv:  
-      
-    ` 
+  * data/kaggle_data.csv:    
+     
     with open('./data/kaggle_data.csv') as f:  
       data = np.array(list(csv.reader(f, delimiter=','))[1:])[:, 2:]  
-    `
+    
 
     The first row is "Date, Time, Transaction, Item", so I skip it.  
     Besides, I only use the third and the fourth column to analysis.  
 
   * ibm/data:  
       
-      '''
-      with open('./data/ibm_data') as f:
-        rawdata = f.readlines()
-      data = []
-      for i in range(len(rawdata)):
-        data.append([int(rawdata[i][10:21]), int(rawdata[i][21:])])
-      '''
+    with open('./data/ibm_data') as f:  
+      rawdata = f.readlines()  
+      data = []  
+      for i in range(len(rawdata)):  
+        data.append([int(rawdata[i][10:21]), int(rawdata[i][21:])])   
 
-      Each line contains three element, and each of these takes up 10 bytes, for a total of 33 bytes per line.
-      And I take the second and the third column to analysis.
+    Each line contains three element, and each of these takes up 10 bytes, for a total of 33 bytes per line.  
+    And I take the second and the third column to analysis.  
 
-*  The method to find the frequent itemsets: Brute force, Apriori, FPgrowth
-   1. Apriori, Brute force
-      The code is in `./apriori.py`
+* The method to find the frequent itemsets: Brute force, Apriori, FPgrowth  
+  * Apriori, Brute force  
+    The code is in `./apriori.py`  
       
-      usage:
-      $ python3 apriori.py [dataset] [support] [confidence] > [result_path]
+    usage:  
+    $ python3 apriori.py [dataset] [support] [confidence] > [result_path]  
 
-      e.g. $ python3 apriori.py kaggle 0.01 0.01 > result/kaggle_apriori
-      The [dataset] can be `kaggle` or `ibm`.
-      The [support] and [confidence] value is a `float less than 1`.
+    e.g. $ python3 apriori.py kaggle 0.01 0.01 > result/kaggle_apriori  
+    The [dataset] can be `kaggle` or `ibm`.  
+    The [support] and [confidence] value is a `float less than 1`.  
 
-      a. First, call the get_transactions() to get all the transactions and the category of items.
-      b. Then, call the freq_itemset() to get the frequent itemsets we want.
-	 You can choose which method you want to use by changing the parameter `method`.('brute' or 'apriori'(default))
-         In this function, the program will scan all the transactions and use get_itemsets() to get the k-frequent itemsets,
-  	 and save it to a set.
-      c. Then, call gen_rules() to get the association rules.
-	 In this function, I want to find the rule: `sample -> target: confidence`.
-	 So for each frequent itemsets, each subset of this itemsets is a sample, and the remaining subset is a target.
-  	 e.g. frequent itemset: ['Bread', 'Coffee', 'Pastry']
-	      sample: ['Bread']
-	      target: ['Coffee', 'Pastry']
-	      confidence = (frequent itemset support) / (sample support)
+    * First, call the get_transactions() to get all the transactions and the category of items.  
+    * Then, call the freq_itemset() to get the frequent itemsets we want.  
+    * You can choose which method you want to use by changing the parameter `method`.('brute' or 'apriori'(default))  
+    * In this function, the program will scan all the transactions and use get_itemsets() to get the k-frequent itemsets,  
+      and save it to a set.  
+    * Then, call gen_rules() to get the association rules.  
+      In this function, I want to find the rule: `sample -> target: confidence`.  
+      So for each frequent itemsets, each subset of this itemsets is a sample, and the remaining subset is a target.  
+      e.g. frequent itemset: ['Bread', 'Coffee', 'Pastry']  
+	   sample: ['Bread']  
+	   target: ['Coffee', 'Pastry']  
+	   confidence = (frequent itemset support) / (sample support)  
 
-   2. FPfrowth
-      The code is in `./fpgrowth.py`
+  * FPfrowth  
+    The code is in `./fpgrowth.py`  
       
-      usage:
-      $ python3 fpgrowth.py [dataset] [support] [confidence] > [result_path]
+    usage:  
+    $ python3 fpgrowth.py [dataset] [support] [confidence] > [result_path]  
 
-      e.g. $ python3 fpgrowth.py kaggle 0.01 0.01 > result/kaggle_fpgrowth
-      The [dataset] can be `kaggle` or `ibm`.
-      The [support] and [confidence] value is a `float less than 1`.
+    e.g. $ python3 fpgrowth.py kaggle 0.01 0.01 > result/kaggle_fpgrowth  
+    The [dataset] can be `kaggle` or `ibm`.  
+    The [support] and [confidence] value is a `float less than 1`.  
 
-      a. First, we call the get_transactions() to return all the transactions and the category of items.
-      b. Then, we call the create_dataset() to return a set, whose key is the kind of the transaction, and the value is how many times this transaction occur in this dataset.
-      c. Then, we call the create_tree() to return the fptree and the header table.
-      d. Then, we call the fptree() to return the frequent itemsets we want.
-      e. Then, call gen_rules() to get the association rules.
-	 In this function, I want to find the rule: `sample -> target: confidence`.
-	 So for each frequent itemsets, each subset of this itemsets is a sample, and the remaining subset is a target.
-  	 e.g. frequent itemset: [38, 63, 69]
-	      sample: [38]
-	      target: [63, 69]
-	      confidence = (frequent itemset support) / (sample support)
+    * First, we call the get_transactions() to return all the transactions and the category of items.  
+    * Then, we call the create_dataset() to return a set, whose key is the kind of the transaction,  
+      and the value is how many times this transaction occur in this dataset.  
+    * Then, we call the create_tree() to return the fptree and the header table.  
+    * Then, we call the fptree() to return the frequent itemsets we want.  
+    * Then, call gen_rules() to get the association rules.  
+      In this function, I want to find the rule: `sample -> target: confidence`.  
+      So for each frequent itemsets, each subset of this itemsets is a sample, and the remaining subset is a target.  
+      e.g. frequent itemset: [38, 63, 69]  
+	   sample: [38]  
+	   target: [63, 69]  
+	   confidence = (frequent itemset support) / (sample support)  
 
-*  Result
-   The result file will be:
+* Result  
+  The result file will be:  
+  
+  Execution time :  
+  Min support:  
+  Frequent itemset:  
+  .  
+  .  
+  .  
+  .  
+  Min confidence:  
+  Association Rules:  
+  .  
+  .  
+  .  
+  .  
    
-   '''
-   * Execution time : 
-   * Min support:
-   * Frequent itemset:
-   .
-   .
-   .
-   .
-   * Min confidence:
-   * Association Rules:
-   .
-   .
-   .
-   .
-   '''
+  * The result of kaggle data is in `result/kaggle_apriori` and `result/kaggle_fpgrowth`  
+    (with support = 0.01, confidence = 0.01)  
    
-   1. The result of kaggle data is in `result/kaggle_apriori` and `result/kaggle_fpgrowth`
-      (with support = 0.01, confidence = 0.01)
-   
-   2. The result of ibm data is in `result/ibm_apriori` and `result/ibm_fpgrowth`
-      (with support = 0.05, confidence = 0.05) 
+  * The result of ibm data is in `result/ibm_apriori` and `result/ibm_fpgrowth`  
+    (with support = 0.05, confidence = 0.05)  
