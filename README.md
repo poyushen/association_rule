@@ -1,29 +1,29 @@
 ## association_rule
 This is a repository for assiciation_rule.
 
-*  There are two datasets:
-   1. Select from kaggle.com: 
-      Transactions from a bakery. (downloaded from https://www.kaggle.com/xvivancos/transactions-from-a-bakery)
+* There are two datasets:
+  * Select from kaggle.com: 
+    Transactions from a bakery. (downloaded from https://www.kaggle.com/xvivancos/transactions-from-a-bakery )
    
-      The dataset is in `kaggle/dataset.csv`.
-      In this dataset, the four columns are Date, Time, Transaction, Item.
-      I only use the column of Transaction and Item in my analysis.
-      The items which share the same Transaction are in the same transaction.
+    The dataset is in `data/kaggle_data.csv`.
+    In this dataset, the four columns are Date, Time, Transaction, Item.
+    I only use the column of Transaction and Item in my analysis.
+    The items which share the same Transaction are in the same transaction.
    
-      e.g.
-      2016-10-30, 09:58:11, 1, Bread
-      2016-10-30, 10:05:34, 2, Scandinavian
-      2016-10-30, 10:05:34, 2, Scandinavian
-      2016-10-30, 10:07:57, 3, Hot chocolate
-      2016-10-30, 10:07:57, 3, Jam
-      2016-10-30, 10:07:57, 3, Cookies
+    e.g.
+    2016-10-30, 09:58:11, 1, Bread </br>
+    2016-10-30, 10:05:34, 2, Scandinavian </br>
+    2016-10-30, 10:05:34, 2, Scandinavian </br>
+    2016-10-30, 10:07:57, 3, Hot chocolate </br>
+    2016-10-30, 10:07:57, 3, Jam </br>
+    2016-10-30, 10:07:57, 3, Cookies </br>
 
-      The transactions are: ['Bread']
-			    ['Scandinavian', 'Scandinavian']
-   			    ['Hot Chocolate', 'Jam', 'Cookies']
+    The transactions are: ['Bread'] </br>
+			  ['Scandinavian', 'Scandinavian']</br>
+   			  ['Hot Chocolate', 'Jam', 'Cookies']</br>
 
    2. Use IBM Quest Synthetic Data Generator:
-      The dataset is in `ibm/data`.
+      The dataset is in `data/ibm_data`.
       In this dataset, the three columns are CustomID, TransactionID, ItemID
       I only use the column of TransactionID and ItemID.(Because the CustomID is always equal to TransactionID)
       The items which share the same TransactionID are in the same transaction.
