@@ -61,7 +61,7 @@ This is a repository for assiciation_rule.
   * data/kaggle_data.csv:    
      
     > with open('./data/kaggle_data.csv') as f:  
-    >  data = np.array(list(csv.reader(f, delimiter=','))[1:])[:, 2:]  
+    > 　data = np.array(list(csv.reader(f, delimiter=','))[1:])[:, 2:]  
     
     The first row is "Date, Time, Transaction, Item", so I skip it.  
     Besides, I only use the third and the fourth column to analysis.  
@@ -69,10 +69,10 @@ This is a repository for assiciation_rule.
   * ibm/data:  
       
     > with open('./data/ibm_data') as f:  
-    >  rawdata = f.readlines()  
-    >  data = []  
-    >  for i in range(len(rawdata)):  
-    >    data.append([int(rawdata[i][10:21]), int(rawdata[i][21:])])   
+    > 　rawdata = f.readlines()  
+    > 　data = []  
+    > 　for i in range(len(rawdata)):  
+    > 　　data.append([int(rawdata[i][10:21]), int(rawdata[i][21:])])   
 
     Each line contains three element, and each of these takes up 10 bytes, for a total of 33 bytes per line.  
     And I take the second and the third column to analysis.  
